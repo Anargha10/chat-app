@@ -85,7 +85,7 @@ export const logout = (req, res) => {
     try {
         const { profilePicture } = req.body;
         const userId = req.user._id; // Find the user by ID from the token
-        console.log("Received profile picture:", profilePicture); // Debug log for received profile picture
+        console.log("Received profile picture:"); // Debug log for received profile picture
 
         if (!profilePicture) {
             console.error("Profile picture is missing"); // Error log for missing profile picture
@@ -94,9 +94,8 @@ export const logout = (req, res) => {
 
         // Update user fields
         console.log("Uploading profile picture to Cloudinary..."); // Debug log before upload
-        const uploadResponse = await cloudinary.uploader.upload(profilePicture,{
-             resource_type: "auto", // Automatically determines file type
-            });
+         const uploadResponse = await cloudinary.uploader.upload(profilePicture);
+      
         console.log("Upload response from Cloudinary:", uploadResponse); // Debug log for upload response
 
         const updatedUser = await User.findByIdAndUpdate(userId, { profilePicture: uploadResponse.secure_url }, { new: true });
