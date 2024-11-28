@@ -103,7 +103,8 @@ export const logout = (req, res) => {
 
         res.status(200).json({ message: "Profile updated successfully", updatedUser });
     } catch (error) {
-        console.error("Error in updateProfile controller:", error.message); // Log the error
+        console.error("Error details in updateprofile controller:", error.stack); // Add this to your catch block
+        // Log the error
         res.status(500).json({ message: "Server error", error: error.message });
     }
 }
