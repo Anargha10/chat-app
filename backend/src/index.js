@@ -7,6 +7,7 @@ import messageroutes from "./routes/message.route.js"; // Import messageroutes
 import connectDB from "./lib/db.js";
 import { app, server } from "./lib/socket.js";
 
+import path from "path"
 // Start Generation Here
 dotenv.config()
 
@@ -33,6 +34,17 @@ app.use(express.urlencoded({ limit:'10mb' ,extended: true }));
 app.use("/api/auth", authroutes)
 app.use("/api/messages", messageroutes) // Use messageroutes for message-related routes
 const PORT = process.env.PORT ;
+
+const __dirname = path.resolve();
+
+if(process.env.NODE_ENV==="production"){
+    app.use(express.static(path.join(__dirname, "../frontend/dist")))
+
+    app.get('*', (req,res)=>{
+        res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"));
+    })
+}
+
 
 connectDB()
 app.get('/', (req, res) => {
