@@ -14,3 +14,9 @@ Backend: Node.js + Express + Socket.IO
 Storage: Cloudinary for images
 Clone, explore, and enhance the project for a modern chat experience! 🎉
 
+
+here's a overview of the app:
+
+![VibeTalk Chat App Demo](https://github.com/user-attachments/assets/46acfb4c-65e9-4ee4-b21b-f346dacb52fd)
+
+
