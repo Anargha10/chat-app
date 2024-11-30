@@ -1,4 +1,4 @@
-Real-Time Chat App
+VibeTalk
 This is a real-time chat application built with a modern tech stack. 
 The frontend is developed using React, Vite, Tailwind CSS, and DaisyUI, with Zustand for state management. 
 The backend is powered by Node.js, Express, and Socket.IO for real-time functionality, and Cloudinary is used for image storage.
