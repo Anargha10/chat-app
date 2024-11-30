@@ -5,6 +5,7 @@ const connectDB = async () => {
        const conn= await mongoose.connect(process.env.MONGODB_URI, {
             useNewUrlParser: true,
             useUnifiedTopology: true,
+            serverSelectionTimeoutMS: 30000, // Adjust timeout to 30 seconds
         });
         console.log(`mongodb connected: ${conn.connection.host}`);
     } catch (error) {

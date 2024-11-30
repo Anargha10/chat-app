@@ -21,9 +21,12 @@ console.log('Cloudinary API Secret:', process.env.CLOUDINARY_API_SECRET);
 app.use(cookieParser()); 
 
 app.use(cors({
-    origin:"http://localhost:5173",
-    credentials:true
+    origin: process.env.NODE_ENV === "production"
+        ? "https://chat-app-qks7.onrender.com" // Replace with your actual deployed frontend URL
+        : "http://localhost:5173",           // For local development
+    credentials: true
 }));
+
 
 app.use((req, res, next) => {
     console.log("Cookies:", req.cookies);
