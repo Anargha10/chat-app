@@ -5,10 +5,13 @@ import cors from "cors"; // Import cors
 import authroutes from "./routes/auth.routes.js";
 import messageroutes from "./routes/message.route.js"; // Import messageroutes
 import connectDB from "./lib/db.js";
+import { app, server } from "./lib/socket.js";
 
 // Start Generation Here
 dotenv.config()
-const app = express();
+
+
+
 console.log('Cloudinary Cloud Name:', process.env.CLOUDINARY_CLOUD_NAME);
 console.log('Cloudinary API Key:', process.env.CLOUDINARY_API_KEY);
 console.log('Cloudinary API Secret:', process.env.CLOUDINARY_API_SECRET);
@@ -36,7 +39,7 @@ app.get('/', (req, res) => {
     res.send('Hello World!');
 });
 
-app.listen(PORT, () => {
+server.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
     
 });

@@ -1,3 +1,4 @@
+import { getReceiverSocketId, io } from '../lib/socket.js';
 import Message from '../models/message.model.js';
 import User from '../models/user.model.js'; // Import User model
 import cloudinary from 'cloudinary'; // Import Cloudinary
@@ -52,7 +53,7 @@ export const sendMessage = async (req, res) => {
         // If an image is provided, upload it to Cloudinary
         if (image) {
             try {
-                const uploadResponse = await cloudinary.v2.uploader.upload(image, {
+                const uploadResponse = await cloudinary.uploader.upload(image, {
                     folder: 'chat-app' // Specify the folder in Cloudinary
                 });
                 imageUrl = uploadResponse.secure_url; // Get the secure URL of the uploaded image
@@ -78,8 +79,12 @@ export const sendMessage = async (req, res) => {
             return res.status(500).json({ message: 'Error saving message', error: saveError.message });
         }
 
-     // todo: realtime chatting functionality goes here=> socket.io
-        
+     //  realtime chatting functionality goes here=> socket.io
+     const receiverSocketId = getReceiverSocketId(receiverId);
+     if(receiverSocketId){
+        io.to(receiverSocketId).emit("newMessage", newMessage);
+     }   
+
      // Send a success response with the new message
         res.status(201).json(newMessage);
     } catch (error) {
